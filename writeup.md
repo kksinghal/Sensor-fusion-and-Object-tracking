@@ -8,7 +8,7 @@ Please use this starter template to answer the following questions:
 
 For tracking a single vehicle, I achieved a RMSE score of 0.32
 
-![RMSE plot](./img/RMSE.png)
+![RMSE plot](./img/RMSE1.png)
 
 
 ### Step 2: Track Management
@@ -16,6 +16,17 @@ For tracking a single vehicle, I achieved a RMSE score of 0.32
 Manage initialization of new detected vehicles, updating current tracks, and deleting old ones. Each track has a corresponding score value, which depicts the confidence score of the detection. 
 
 ![Track Management](./img/track_management.gif)
+
+![RMSE plot](./img/RMSE2.png)
+
+
+### Step 3: Association of tracks and sensor measurements
+
+Associate new measurements with current tracks using simple nearest neighbor to achieve multi-target tracking
+
+![Multi target tracking](./img/multi_target_tracking.gif)
+
+![RMSE plot](./img/RMSE3.png)
 
 
 ### 2. Do you see any benefits in camera-lidar fusion compared to lidar-only tracking (in theory and in your concrete results)? 
