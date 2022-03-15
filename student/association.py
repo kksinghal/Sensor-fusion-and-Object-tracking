@@ -47,7 +47,7 @@ class Association:
         for i in range(len(track_list)):
             for j in range(len(meas_list)):
                 dist = self.MHD(track_list[i], meas_list[j], KF)
-                if self.gating(dist):
+                if self.gating(dist, meas_list[j].sensor):
                     self.association_matrix[i, j] = dist
                 else:
                     self.association_matrix[i, j] = np.inf
@@ -97,12 +97,16 @@ class Association:
         ############ 
         return track_ind, meas_ind
 
-    def gating(self, MHD): 
+    def gating(self, MHD, sensor): 
         ############
         # TODO Step 3: return True if measurement lies inside gate, otherwise False
         ############
+        if sensor.name == 'lidar':
+            limit = chi2.ppf(params.gating_threshold, df=2)
+            
+        if sensor.name == 'camera':
+            limit = chi2.ppf(params.gating_threshold, df=1)
         
-        limit = chi2.ppf(params.gating_threshold, df=2)
         if MHD < limit:
             return True
         else:
@@ -116,10 +120,12 @@ class Association:
         ############
         # TODO Step 3: calculate and return Mahalanobis distance
         ############
+
         H = meas.sensor.get_H(track.x)
-        S = H*track.P*H.transpose() + meas.R
-        return (meas.z - H*track.x).T * np.linalg.inv(S) * (meas.z - H*track.x)
+        S_inv = np.linalg.inv(H * track.P * H.T + meas.R)
+        gamma = KF.gamma(track, meas)
         
+        return gamma.T*S_inv*gamma
         ############
         # END student code
         ############ 
@@ -130,7 +136,6 @@ class Association:
             
         # associate measurements and tracks
         self.associate(manager.track_list, meas_list, KF)
-    
         # update associated tracks with measurements
         while self.association_matrix.shape[0]>0 and self.association_matrix.shape[1]>0:
             

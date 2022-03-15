@@ -119,7 +119,8 @@ class Trackmanagement:
         tracks_to_be_deleted = []
         for i in unassigned_tracks:
             track = self.track_list[i]
-            if (track.state == "initialised" and track.score < 0.2 and track.age>4) or \
+
+            if (track.state == "initialised" and track.score < 0.2 and track.age>10) or \
                 (track.state == "tentative" and track.score < 0.3) or \
                 (track.state == "confirmed" and track.score < 0.6) or\
                 (track.P[0,0]>params.max_P) or (track.P[1,1]>params.max_P):

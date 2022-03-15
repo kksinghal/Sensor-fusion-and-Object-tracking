@@ -24,9 +24,16 @@ Manage initialization of new detected vehicles, updating current tracks, and del
 
 Associate new measurements with current tracks using simple nearest neighbor to achieve multi-target tracking
 
+![RMSE plot](./img/RMSE3.png)
+
+
+### Step 4: Fuse measurements from camera along with Lidar
+
+Perform multi-target tracking by fusing lidar and camera measurements.
+
 ![Multi target tracking](./img/multi_target_tracking.gif)
 
-![RMSE plot](./img/RMSE3.png)
+![RMSE plot](./img/RMSE4.png)
 
 
 ### 2. Do you see any benefits in camera-lidar fusion compared to lidar-only tracking (in theory and in your concrete results)? 
