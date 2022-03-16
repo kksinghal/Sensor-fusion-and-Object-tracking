@@ -18,6 +18,8 @@ dt = 0.1 # time increment
 q=3 # process noise variable for Kalman filter Q
 
 # track management parameters (Step 2)
+stablization_age = 5 #Delete initialised track after stablization_age frame if score is below threshold 
+tentative_threshold = 0.4 # track score threshold to switch from 'initialised' to 'tentative'
 confirmed_threshold = 0.8 # track score threshold to switch from 'tentative' to 'confirmed'
 delete_threshold = 0.6 # track score threshold to delete confirmed tracks
 window = 6 # number of frames for track score calculation
